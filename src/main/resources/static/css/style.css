@@ -1,0 +1,247 @@
+@charset "UTF-8";
+
+html, body {
+    margin: 0;
+    height: 100vh; /* Viewport height */
+    width: 100vw; /* Viewport width */
+    display: flex;
+    justify-content: center;
+}
+
+#wrap {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+}
+
+header {
+    width: 100%;
+    height: 35px;
+    border: 1px solid black;
+}
+
+footer {
+    width: 100%;
+    height: calc((100% - 35px) * 0.3); /* 30% of the remaining height */
+    border: 1px solid black;
+    overflow: auto; /* 스크롤바를 추가합니다 */
+    position: relative;
+}
+
+section {
+    width: 100%;
+    height: calc((100% - 35px) * 0.7); /* 70% of the remaining height */
+    display: flex;
+    flex-direction: row; /* 가로로 배치 */
+    border: 1px solid black;
+}
+
+.contents {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row; /* 가로로 배치 */
+    border: 1px solid black;
+}
+
+.content1 {
+    width: calc((100% - 7px) * 0.2); /* Percentage width */
+    height: 100%;
+    border: 1px solid black;
+    resize: horizontal; /* 사용자에게 크기를 조정할 수 있는 핸들을 제공합니다 */
+    /* overflow: auto;  조정 후 내용이 넘칠 때 스크롤을 추가합니다 */
+    border: 1px solid #ccc; /* 경계를 추가하여 조정 가능한 영역을 명확하게 표시합니다 */
+    padding: 10px; /* 내부 여백을 추가합니다 */
+}
+
+aside {
+    width: calc((100% - 7px) * 0.8); /* Percentage width */
+    height: 100%;
+    border: 1px solid black;
+}
+
+#asideImageContainer {
+    width: 100%;
+    height: 100%;
+}
+
+#imgContent, #jspContent {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#asideImage, #mapchangeContainer {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content1 {
+    width: calc((100% - 7px) * 0.2); /* Percentage width */
+    height: 100%;
+    border: 1px solid black;
+    resize: horizontal; /* 사용자에게 크기를 조정할 수 있는 핸들을 제공합니다 */
+    /* overflow: auto;  조정 후 내용이 넘칠 때 스크롤을 추가합니다 */
+    border: 1px solid #ccc; /* 경계를 추가하여 조정 가능한 영역을 명확하게 표시합니다 */
+    padding: 10px; /* 내부 여백을 추가합니다 */
+}
+
+/* 트리 */
+.jstree-anchor {
+    color: black;
+    font-size: 16px; /* 원하는 크기로 설정 */
+}
+
+.tree-controls {
+    margin-top: 10px;
+}
+
+.tree-controls button {
+    margin-right: 5px;
+}
+
+
+.jstree-icon.jstree-themeicon.custom.jstree-themeicon-custom {
+    background-image: url('/static/image/images/map/root.png'); /* 커스텀 네트워크 아이콘 */
+    background-size: cover;
+    top: 4px;
+    right: 2px;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+.jstree-icon.jstree-themeicon.jstree-themeicon-custom {
+    background-image: url('/static/image/images/map/area.gif'); /* 커스텀 아이콘 */
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.jstree-icon.jstree-themeicon.jstree-child-themeicon-custom {
+    background-image: url('/static/image/images/map/treeRack.gif'); /* 폴더 아이콘 */
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.jstree-icon.jstree-themeicon.jstree-child-themeicon-custom-end {
+    background-image: url('/static/image/images/map/tg_tree_normal.gif'); /* 파일 아이콘 */
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.jstree-icon.jstree-themeicon.jstree-special-themeicon-custom {
+    background-image: url('/static/image/images/map/group.png'); /* 파일 아이콘 */
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+/* 트리 요소 크기 조절 */
+.jstree-default .jstree-anchor {
+    line-height: 30px; /* 수정하고자 하는 속성 값 */
+    height: 30px; /* 수정하고자 하는 속성 값 */
+}
+
+/* 탭 전환 */
+ul.tabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.tabs li {
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+ul.tabs li.current {
+    background: #ededed;
+    color: #222;
+}
+
+.tab-content {
+    display: none;
+    /* background: #ededed; */
+    padding: 15px;
+}
+
+.tab-content.current {
+    display: inherit;
+    overflow: auto;
+}
+
+/* sectiontabs */
+
+/* aside 탭 전환 */
+ul.sectiontabs {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+ul.sectiontabs li {
+    background: none;
+    color: #222;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+ul.sectiontabs li.current {
+    background: #ededed;
+    color: #222;
+}
+
+.sectiontab-content {
+    display: none;
+    height: calc(100% - 100px);
+    padding: 15px;
+}
+
+.sectiontab-content.current {
+    display: inherit;
+}
+
+/* 지도 탭 전환 */
+.mapcontent {
+    display: none;
+}
+
+.mapcontent.mapcurrent {
+    display: block;
+}
+
+/* map.jsp */
+.row.content {
+    height: 100%;
+    width: 100%;
+}
+
+#seoulJspContent, #GangwonJspContent, #JejuJspContent, #NorthChungcheongJspContent, #SouthChungcheongJspContent, #NorthJeollaJspContent, #NorthGyeongsangJspContent, #SouthGyeongsangJspContent, #SouthJeollaJspContent, #list {
+    height: 100%;
+    width: 100%;
+}
+
+
+path:hover {
+    cursor: pointer;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지 비율을 유지하며 크기 조정 */
+}
