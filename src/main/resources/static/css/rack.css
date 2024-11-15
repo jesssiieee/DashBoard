@@ -1,0 +1,259 @@
+@charset "UTF-8";
+
+#image-bigcontainer {
+    width: 326px;
+    height: 824px;
+    background: url('/static/image/element/rack3.gif') no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+
+#image-container {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 197px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 330px; /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+#image-container2 {
+    width: calc(100% - 65px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 98px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 429px; /* 이미지의 세로 위치 조정 */
+    left: 45px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+.section-1, .section-2 {
+    border: 0.5px solid red;
+    flex: 1 0 11.5px; /* 기본적으로 12px 너비를 차지하도록 설정 */
+    height: 100%;
+}
+
+.section-3, .section-4, .section-5, .section-6, .section-7, .section-8,
+.section-9, .section-10, .section-11, .section-12, .section-13,
+.section-14, .section-15, .section-16, .section-17, .section-18,
+.section-19, .section-20, .section-21, .section-22, .section-23,
+.section-24 {
+    border: 0.5px solid red;
+    position: relative;
+    flex: 1 0 11px; /* 기본적으로 12px 너비를 차지하도록 설정 */
+    height: 98px; /* 각 섹션이 전체 높이의 반을 차지하도록 설정 */
+}
+
+.section-27, .section-28, .section-29, .section-30, .section-31,
+.section-32, .section-35, .section-36, .section-37, .section-38,
+.section-39, .section-40, .section-41, .section-42, .section-43,
+.section-44, .section-45 {
+    border: 0.5px solid red;
+    position: relative;
+    flex: 1 0 11px; /* 기본적으로 12px 너비를 차지하도록 설정 */
+    height: 98px; /* 각 섹션이 전체 높이를 차지하도록 설정 */
+}
+
+.section-33, .section-34 {
+    border: 0.5px solid red;
+    flex: 1 0 17px; /* 33번과 34번 섹션의 너비를 18px로 설정 */
+}
+
+.section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#blank_div {
+    height: 315px;
+}
+
+#header {
+    /* border: 0.5px solid red; */
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 13px;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(318px); /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#footer {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 35px;
+    background: url('/static/image/element/footer.gif') no-repeat;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(527px);
+    /* 이미지의 세로 위치 조정 (image-container 바로 아래에 위치하도록 설정) = 318px + 243px - 35px */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#blank_div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#image-container1_2 {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 197px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 575px; /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+#image-container2_2 {
+    width: calc(100% - 65px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 98px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 674px; /* 이미지의 세로 위치 조정 */
+    left: 45px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+#header2 {
+    /* border: 0.5px solid red; */
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 13px;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(563px); /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#footer2 {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 35px;
+    background: url('/static/image/element/footer.gif') no-repeat;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(772px);
+    /* 이미지의 세로 위치 조정 (image-container 바로 아래에 위치하도록 설정) = 318px + 243px - 35px */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#header0 {
+    /* border: 0.5px solid red; */
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 13px;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(73px); /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#footer0 {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 35px;
+    background: url('/static/image/element/footer.gif') no-repeat;
+    background-size: cover;
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: calc(282px);
+    /* 이미지의 세로 위치 조정 (image-container 바로 아래에 위치하도록 설정) = 318px + 243px - 35px */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+}
+
+#image-container0_1 {
+    width: calc(100% - 40px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 197px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 85px; /* 이미지의 세로 위치 조정 */
+    left: 20px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+#image-container0_2 {
+    width: calc(100% - 65px); /* 베이지색 부분을 제외한 너비를 계산 */
+    height: 98px; /* 전체 높이를 설정 */
+    position: absolute; /* 이미지 내에서의 절대 위치 지정 */
+    top: 184px; /* 이미지의 세로 위치 조정 */
+    left: 45px; /* 베이지색 부분 안쪽에 그리드를 배치하도록 조정 */
+    display: flex;
+    flex-wrap: wrap; /* 행이 여러 개로 나뉘도록 설정 */
+}
+
+
+
+/* menu */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a, a:active, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: inherit;
+    text-decoration: underline;
+}
+
+li {
+    list-style-type: none;
+}
+
+.lnb {
+    background-color: black;
+    font-size: 10px;
+    color: white;
+}
+
+.menu-link {
+    display: block;
+    width: 30px;
+    height: 10px;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+.lnb>ul>li>a {
+    color: white;
+    font-weight: bold;
+}
+
+.lnb>ul>li:hover>a {
+    color: black;
+    background-color: white;
+}
+
+/* 1depth와 2depth에 hover시 차이 */
+.submenu-link {
+    display: block;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin-bottom: 2px;
+}
+
+.lnb>ul>li {
+    position: relative;
+}
+
+.subMenu {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    display: none;
+}
+
+.lnb>ul>li:hover>.subMenu {
+    display: block;
+}
+
+.subMenu a:hover {
+    color: white;
+    background-color: black;
+}

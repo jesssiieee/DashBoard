@@ -7,9 +7,16 @@
         SELECT
             `id`
              , `area_name`
-             , `forward_group_name`
+             , `type`
              , `name`
              , `depth`
+             , `forward_group_name`
+             , `total_x_pos`
+             , `total_y_pos`
+             , `x_pos`
+             , `y_pos`
+             , `description`
+             , `image_name`
         FROM
             `map_info`
 
