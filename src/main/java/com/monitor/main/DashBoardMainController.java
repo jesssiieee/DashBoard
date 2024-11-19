@@ -18,7 +18,7 @@ public class DashBoardMainController {
     private MapInfoBO mapInfoBO;
 
     @GetMapping("/DashBoard")
-    // url: http://localhost/main/DashBoard
+    // url: http://localhost:80/main/DashBoard
     public String DashBoardMainPage(Model model) {
 
         String mapInfoJson = mapInfoBO.getMapInfoJson();

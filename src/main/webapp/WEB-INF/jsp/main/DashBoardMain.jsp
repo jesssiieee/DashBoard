@@ -36,26 +36,6 @@
     const areaName = ["강원", "경남", "경북", "수도권", "전남", "전북", "제주", "충남", "충북"];
 
     $(document).ready(function() {
-
-        var socket = new WebSocket('ws://localhost:9000'); // 서버의 WebSocket 주소로 변경하세요.
-
-        socket.onopen = function(event) {
-            console.log('WebSocket 연결 성공');
-        };
-
-        socket.onmessage = function(event) {
-            console.log('서버로부터 받은 메시지:', event.data);
-        };
-
-        socket.onerror = function(error) {
-            console.log('WebSocket 오류:', error);
-        };
-
-        socket.onclose = function(event) {
-            console.log('WebSocket 연결 종료:', event);
-        };
-
-
         let getMapInfo = ${getMapInfoJson}
 
         var selectedNodeId = null;
@@ -69,6 +49,22 @@
         var minimizedDialogs = {}; // 객체로 변경
 
         var restoringDialogs = new Set(); // 복원 중인 다이얼로그 ID를 저장할 Set
+
+        let receivedData; // 웹소켓으로부터 받은 데이터 저장 변수
+
+        // 웹소켓 연결 설정
+        // var socket = new WebSocket('ws://localhost:9000'); // 라즈베리파이의 웹소켓 서버 URL에 맞게 설정
+        //
+        // socket.onopen = (event) => {
+        //     if (socket.readyState === WebSocket.OPEN) {
+        //         console.log("WebSocket 연결이 열렸습니다.");
+        //         socket.send("Hello Server, we are connected");
+        //     }
+        // };
+        //
+        // socket.addEventListener("message", (event) => {
+        //     console.log("Message from server:", event.data);
+        // });
 
         // 다이얼로그 생성 함수
         function createDialog(dialogId) {
@@ -231,7 +227,7 @@
         }).on('dblclick.jstree', function(e, data) {
             var node = $(e.target).closest("li");
             var nodeData = $('#tree-container').jstree(true).get_node(node.attr("id")).data;
-            console.log("nodeData",nodeData);
+            // console.log("nodeData",nodeData);
 
             // 부모 노드와 조부모 노드를 가져옵니다.
             var parentNodeId = $('#tree-container').jstree(true).get_node(node.attr("id")).parent;
@@ -242,11 +238,46 @@
             var areaName = grandParentNodeData;
 
             if (initializing) return;
-            console.log("initializing", initializing);
+            // console.log("initializing", initializing);
 
             if (nodeData && nodeData.nodeName) {
                 var nodeName = nodeData.nodeName;
-                console.log("nodeName",nodeName);
+                // console.log("nodeName:",nodeName);
+
+                    // WebSocket이 열린 상태에서만 메시지를 처리
+                    // if (socket.readyState === WebSocket.OPEN) {
+                    //     console.log('WebSocket 상태:', socket.readyState);  // 연결 상태 확인
+                    //
+                    //     // 메시지를 받을 때 실행될 핸들러 설정
+                    //     socket.onmessage = function(event) {
+                    //         console.log("onmessage 진입");
+                    //
+                    //         try {
+                    //             // 서버로부터 받은 메시지 처리
+                    //             const receivedData = JSON.parse(event.data);  // 메시지 받기
+                    //             console.log("Received data from server:", receivedData);  // 서버로부터 받은 데이터 출력
+                    //
+                    //             // 받은 데이터를 사용하여 메시지를 만들기
+                    //             const message = {
+                    //                 action: 'nodeDoubleClicked',
+                    //                 receivedData: receivedData
+                    //             };
+                    //
+                    //             console.log('전송할 메시지:', message);  // 전송할 메시지 확인
+                    //
+                    //             // WebSocket을 통해 메시지를 보낼 때
+                    //             socket.send(JSON.stringify(message));  // 서버로 메시지를 보냄
+                    //         } catch (error) {
+                    //             console.error("Error processing received message:", error);
+                    //         }
+                    //     };
+                    //
+                    // } else {
+                    //     console.error('WebSocket이 연결되어 있지 않습니다.');
+                    //     console.log('WebSocket 상태:', socket.readyState);  // 연결 상태 확인
+                    // }
+
+
 
                 var dialogId = 'dialog-' + (dialogCounter++);
                 console.log("dbdialogId: ", dialogId);
@@ -291,13 +322,11 @@
                 $.ajax({
                     url: 'http://localhost/rack/' + encodeURIComponent(nodeName),
                     method: 'GET',
-                    // data: {
-                    //     nodeType: nodeData.nodeType,
-                    //     nodeId: nodeData.nodeId,
-                    //     shelfId: nodeData.shelfId,
-                    //     ops: nodeData.ops,
-                    //     rackNodes: rackNodesJson // JSON stringified rackNodes
-                    // },
+                    data: {
+                        nodeType: nodeData.nodeType,
+                        nodeId: nodeData.nodeId,
+                        receivedData: JSON.stringify(receivedData) // JSON stringified rackNodes
+                    },
                     success: function(response) {
                         $dialog.html(response);
                     },
@@ -451,6 +480,27 @@
                 $('#imgContent').addClass('mapcurrent');
             }
         });
+
+        var socket = io('http://localhost:3000');
+
+        socket.on('connect', function() {
+            console.log('Socket.IO connected');
+            socket.emit('register', { recipient: 'DashBoardMain' });
+        });
+
+        socket.on('message', function(data) {
+            console.log('Message received:', data);
+            $('#messages').append('<div>' + data.message + '</div>');
+        });
+
+        // 서버에서 메시지 목록을 받아 출력
+        socket.on('messageList', function(messages) {
+            console.log('Received message list:', messages);
+            messages.forEach(function(message) {
+                $('#messages').append('<div>' + message + '</div>');
+            });
+        });
+
     }); // ready
 </script>
 
