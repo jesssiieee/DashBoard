@@ -52,20 +52,6 @@
 
         let receivedData; // 웹소켓으로부터 받은 데이터 저장 변수
 
-        // 웹소켓 연결 설정
-        // var socket = new WebSocket('ws://localhost:9000'); // 라즈베리파이의 웹소켓 서버 URL에 맞게 설정
-        //
-        // socket.onopen = (event) => {
-        //     if (socket.readyState === WebSocket.OPEN) {
-        //         console.log("WebSocket 연결이 열렸습니다.");
-        //         socket.send("Hello Server, we are connected");
-        //     }
-        // };
-        //
-        // socket.addEventListener("message", (event) => {
-        //     console.log("Message from server:", event.data);
-        // });
-
         // 다이얼로그 생성 함수
         function createDialog(dialogId) {
             var $dialog = $('<div></div>')
@@ -238,46 +224,10 @@
             var areaName = grandParentNodeData;
 
             if (initializing) return;
-            // console.log("initializing", initializing);
 
             if (nodeData && nodeData.nodeName) {
                 var nodeName = nodeData.nodeName;
                 // console.log("nodeName:",nodeName);
-
-                    // WebSocket이 열린 상태에서만 메시지를 처리
-                    // if (socket.readyState === WebSocket.OPEN) {
-                    //     console.log('WebSocket 상태:', socket.readyState);  // 연결 상태 확인
-                    //
-                    //     // 메시지를 받을 때 실행될 핸들러 설정
-                    //     socket.onmessage = function(event) {
-                    //         console.log("onmessage 진입");
-                    //
-                    //         try {
-                    //             // 서버로부터 받은 메시지 처리
-                    //             const receivedData = JSON.parse(event.data);  // 메시지 받기
-                    //             console.log("Received data from server:", receivedData);  // 서버로부터 받은 데이터 출력
-                    //
-                    //             // 받은 데이터를 사용하여 메시지를 만들기
-                    //             const message = {
-                    //                 action: 'nodeDoubleClicked',
-                    //                 receivedData: receivedData
-                    //             };
-                    //
-                    //             console.log('전송할 메시지:', message);  // 전송할 메시지 확인
-                    //
-                    //             // WebSocket을 통해 메시지를 보낼 때
-                    //             socket.send(JSON.stringify(message));  // 서버로 메시지를 보냄
-                    //         } catch (error) {
-                    //             console.error("Error processing received message:", error);
-                    //         }
-                    //     };
-                    //
-                    // } else {
-                    //     console.error('WebSocket이 연결되어 있지 않습니다.');
-                    //     console.log('WebSocket 상태:', socket.readyState);  // 연결 상태 확인
-                    // }
-
-
 
                 var dialogId = 'dialog-' + (dialogCounter++);
                 console.log("dbdialogId: ", dialogId);
@@ -480,27 +430,6 @@
                 $('#imgContent').addClass('mapcurrent');
             }
         });
-
-        var socket = io('http://localhost:3000');
-
-        socket.on('connect', function() {
-            console.log('Socket.IO connected');
-            socket.emit('register', { recipient: 'DashBoardMain' });
-        });
-
-        socket.on('message', function(data) {
-            console.log('Message received:', data);
-            $('#messages').append('<div>' + data.message + '</div>');
-        });
-
-        // 서버에서 메시지 목록을 받아 출력
-        socket.on('messageList', function(messages) {
-            console.log('Received message list:', messages);
-            messages.forEach(function(message) {
-                $('#messages').append('<div>' + message + '</div>');
-            });
-        });
-
     }); // ready
 </script>
 

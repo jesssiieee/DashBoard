@@ -1,5 +1,6 @@
 package com.monitor.node.domain;
 
+
 public class MapInfo {
 
     private int id;

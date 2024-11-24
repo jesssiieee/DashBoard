@@ -86,6 +86,6 @@
             </div>
 
         </div>
-
+        <script src="/static/js/script.js"></script>
     </body>
 </html>

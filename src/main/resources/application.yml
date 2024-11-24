@@ -8,9 +8,9 @@ spring:
     static-path-pattern: /static/**
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/dashBoard?characterEncoding=UTF-8
+    url: jdbc:mysql://MacBook-Air.local:3306/DASHBOARD
     username: root
-    password: rootroot
+    password: root
   jpa:
     show-sql: true
     hibernate:
@@ -20,7 +20,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
-        ddl-auto: update
 mybatis:
   mapper-locations: mappers/*Mapper.xml
