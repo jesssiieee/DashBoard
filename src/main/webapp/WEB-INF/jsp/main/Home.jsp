@@ -53,14 +53,75 @@
     <div id="asideImage" style="position: relative;">
         <img src="/static/image/images/map/bg.jpg" style="width: 100%; height: 100%; object-fit: cover;" />
         <!-- 메시지 내용을 여기에 출력 -->
-        <div id="messages" style="position: absolute; top: 10px; left: 10px; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px;">
-            <!-- 동적으로 내용 추가 -->
+<%--        <div id="messages" style="position: absolute; top: 10px; left: 10px; color: white; background-color: rgba(0, 0, 0, 0.5); padding: 10px; border-radius: 5px;">--%>
+<%--            <!-- 동적으로 내용 추가 -->--%>
+<%--        </div>--%>
+        <div class="custom-overlay-container" id="overlayContainer">
+            <c:forEach items="${mapInfoList}" var="mapInfo" varStatus="loop">
+                <c:choose>
+                    <c:when test="${mapInfo.type == 2 and mapInfo.depth == 1}">
+
+                        <div class="custom-draggable" data-index="${loop.index}">
+                            <img
+                                    src="/static/image/images/map/tam_rack.png"
+                                    data-name="${mapInfo.name}"
+                                    data-areaname="${mapInfo.area_name}"
+                                    data-nodetype="${mapInfo.type}"
+                                    data-nodedepth="${mapInfo.depth }">
+                            <span>${mapInfo.name}</span>
+                        </div>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
         </div>
     </div>
 </div>
 
 <script>
+    function adjustImagePositions() {
+        const overlayContainer = document.getElementById('overlayContainer');
+        const asideImage = document.getElementById('asideImage');
+        const elements = overlayContainer.querySelectorAll('.custom-draggable');
 
+        const imageWidth = asideImage.offsetWidth; // asideImage의 넓이를 px 단위로
+        const imageHeight = asideImage.offsetHeight; // asideImage의 높이를 px 단위로
+
+        let currentLeft = 50;
+        let currentTop = 70;
+        const elementWidth = 180;  // 각 요소의 너비 (픽셀 단위로 설정), 간격
+        const elementHeight = 150; // 각 요소의 높이 (픽셀 단위로 설정)
+
+        elements.forEach(element => {
+            if (currentLeft + elementWidth > imageWidth) { // 요소가 이미지의 너비를 넘어서면 다음 줄로 내림
+                currentLeft = 50;
+                currentTop += elementHeight;
+            }
+
+            element.style.left = currentLeft + 'px';
+            element.style.top = currentTop + 'px';
+
+            currentLeft += elementWidth;
+
+            // 클릭 이벤트 추가
+            const img = element.querySelector('img');
+            img.addEventListener('click', function () {
+                const nodeText = this.getAttribute('data-name');
+                const areaName = this.getAttribute('data-areaname');
+                const nodeType = this.getAttribute('data-nodetype');
+                const nodeDepth = this.getAttribute('data-nodedepth');
+
+                sendDataToServer(nodeText, areaName, nodeType, nodeDepth, function () {
+                    console.log("ajax 실행");
+                    // 요청 성공 후 페이지 이동
+                    window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth);
+                    // window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth);
+                });
+            });
+        });
+    }
+
+    window.addEventListener('load', adjustImagePositions);
+    window.addEventListener('resize', adjustImagePositions);
 </script>
 </body>
 </html>

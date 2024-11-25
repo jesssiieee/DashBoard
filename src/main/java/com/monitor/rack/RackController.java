@@ -1,41 +1,71 @@
 package com.monitor.rack;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @RequestMapping("/rack")
 public class RackController {
-    @GetMapping("/{nodeName}")
-    public String PopUpPage(
+
+    @GetMapping("/testrack")
+    public String RackTestPage(
+            HttpSession session,
             Model model) {
 
+        Map<String, Object> receivedData = (Map<String, Object>) session.getAttribute("receivedData");
 
-// 		Properties property = System.getProperties();
+        if (receivedData != null) {
+            // 받은 데이터를 Model에 추가
+            model.addAttribute("networkData", receivedData.get("net"));
+            model.addAttribute("diskData", receivedData.get("disk"));
+            model.addAttribute("memoryData", receivedData.get("memory"));
+        }
 
-        //property.setProperty("org.omg.CORBA.ORBClass", "org.jacorb.orb.ORB");
-        //property.setProperty("org.omg.CORBA.ORBSingletonClass", "org.jacorb.orb.ORBSingleton");
+        // 세션에서 node 관련 데이터 가져오기
+        String areaName = (String) session.getAttribute("areaName");
+        String nodeText = (String) session.getAttribute("nodeText");
+        String nodeType = (String) session.getAttribute("nodeType");
+        String nodeDepth = (String) session.getAttribute("nodeDepth");
 
-//		ProcDomain proc = procBo.getProcIor("SGS");
-//		LOGGER.info(proc.getProcIor());
-//
-//		ORB orb = ORB.init(new String[0], property);
-//		org.omg.CORBA.Object obj = orb.string_to_object(proc.getProcIor());
-//		TGWIf tgwIf = TGWIfHelper.narrow(obj);
-//
-//		BOARDIdx varBOARDIdx = new BOARDIdx();
-//		varBOARDIdx.nodeId = 169083848;
-//
-//		SLOTConfigListHolder varSLOTConfigList = new SLOTConfigListHolder();
-//		StringHolder reason = new StringHolder();
-//		int ret = tgwIf.getSLOT(varBOARDIdx, varSLOTConfigList, reason);
-//
-//		LOGGER.info("ret : " + ret );
-//
-//		model.addAttribute("SlotConfig", varSLOTConfigList);
+        // 모델에 세션 데이터 추가
+        model.addAttribute("areaName", areaName);
+        model.addAttribute("nodeText", nodeText);
+        model.addAttribute("nodeType", nodeType);
+        model.addAttribute("nodeDepth", nodeDepth);
 
-        return "rack/rackNode";
+        return "rack/rackNode"; // rackNode.jsp로 이동
+    }
+
+    @PostMapping("/testrack")
+    @ResponseBody
+    public String RackTest(@RequestBody Map<String, Object> requestData, HttpSession session) {
+        try {
+            String nodeText = (String) requestData.get("nodeText");
+            String areaName = (String) requestData.get("areaName");
+            String nodeType = (String) requestData.get("nodeType");
+            String nodeDepth = (String) requestData.get("nodeDepth");
+
+            Map<String, Object> receivedData = (Map<String, Object>) requestData.get("receivedData");
+            session.setAttribute("receivedData", receivedData);
+            session.setAttribute("nodeText", nodeText);
+            session.setAttribute("areaName", areaName);
+            session.setAttribute("nodeType", nodeType);
+            session.setAttribute("nodeDepth", nodeDepth);
+
+//            System.out.println("Node Text: " + nodeText);
+//            System.out.println("Area Name: " + areaName);
+//            System.out.println("Node Type: " + nodeType);
+//            System.out.println("Node Depth: " + nodeDepth);
+
+            return "redirect:/testrack";
+        } catch (Exception e) {
+            // 예외 발생 시 로그 출력
+            e.printStackTrace();
+            return "Error occurred: " + e.getMessage();
+        }
     }
 }
