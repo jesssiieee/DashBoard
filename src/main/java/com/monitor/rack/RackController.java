@@ -30,12 +30,14 @@ public class RackController {
         String nodeText = (String) session.getAttribute("nodeText");
         String nodeType = (String) session.getAttribute("nodeType");
         String nodeDepth = (String) session.getAttribute("nodeDepth");
+        String nodePort = (String) session.getAttribute("nodePort");
 
         // 모델에 세션 데이터 추가
         model.addAttribute("areaName", areaName);
         model.addAttribute("nodeText", nodeText);
         model.addAttribute("nodeType", nodeType);
         model.addAttribute("nodeDepth", nodeDepth);
+        model.addAttribute("nodePort", nodePort);
 
         return "rack/rackNode"; // rackNode.jsp로 이동
     }
@@ -48,6 +50,7 @@ public class RackController {
             String areaName = (String) requestData.get("areaName");
             String nodeType = (String) requestData.get("nodeType");
             String nodeDepth = (String) requestData.get("nodeDepth");
+            String nodePort = (String) requestData.get("nodePort");
 
             Map<String, Object> receivedData = (Map<String, Object>) requestData.get("receivedData");
             session.setAttribute("receivedData", receivedData);
@@ -55,6 +58,7 @@ public class RackController {
             session.setAttribute("areaName", areaName);
             session.setAttribute("nodeType", nodeType);
             session.setAttribute("nodeDepth", nodeDepth);
+            session.setAttribute("nodePort", nodePort);
 
 //            System.out.println("Node Text: " + nodeText);
 //            System.out.println("Area Name: " + areaName);

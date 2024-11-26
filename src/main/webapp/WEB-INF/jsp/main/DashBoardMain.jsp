@@ -49,137 +49,6 @@
         var minimizedDialogs = {}; // 객체로 변경
         var restoringDialogs = new Set(); // 복원 중인 다이얼로그 ID를 저장할 Set
 
-        // 다이얼로그 생성 함수
-        function createDialog(dialogId) {
-            var $dialog = $('<div></div>')
-                .attr('id', dialogId)
-                .html('<p>Loading...</p>')
-                .dialog({
-                    autoOpen: false,
-                    width: 1000,
-                    height: 1000,
-                    modal: true,
-                    open: function(event, ui) {
-                        // 최소화 버튼 추가
-                        if (!$('.ui-dialog-titlebar-minimize', $(this).parent()).length) {
-                            $('.ui-dialog-titlebar', $(this).parent()).append('<span class="ui-dialog-titlebar-minimize">_</span>');
-                        }
-                        // 최소화 버튼 클릭 이벤트 바인딩
-                        // $('.ui-dialog-titlebar-minimize').off('click').on('click', function() {
-                        //
-                        //     // restoringDialogs가 존재하고 Set일 때
-                        //     if (restoringDialogs && restoringDialogs instanceof Set && restoringDialogs.size > 0) {
-                        //         // Set을 배열로 변환
-                        //         const restoringDialogsArray = Array.from(restoringDialogs);
-                        //
-                        //         // 배열에서 첫 번째 요소를 꺼냄
-                        //         const firstDialogId = restoringDialogsArray[0]; // 예를 들어 첫 번째 요소를 가져옴
-                        //
-                        //         // 다이얼로그를 숨기기
-                        //         const dialogToHide = $('#' + firstDialogId); // firstDialogId를 이용해 jQuery 객체를 선택
-                        //         if (dialogToHide.length) { // 선택한 다이얼로그가 존재하는지 확인
-                        //             dialogToHide.dialog('widget').hide(); // 다이얼로그 위젯을 숨깁니다.
-                        //             // minimizedImageCount++;
-                        //             const leftPosition = minimizedImageCount * (imageWidth + imageGap);
-                        //             $('.ui-widget-overlay').hide(); // 오버레이 숨기기
-                        //             minimizedContainer.append('<img src="/static/image/images/map/treeRack.gif" class="minimized-img" data-dialog-id="' + firstDialogId + '" onclick="restoreDialog(\'' + firstDialogId + '\')" style="position: absolute; left: ' + leftPosition + 'px;" />');
-                        //             restoringDialogs.delete(firstDialogId);
-                        //             minimizedImageCount = Object.keys(minimizedDialogs).filter(key => minimizedDialogs[key].isMinimized).length; // 최소화 상태 개수 업데이트
-                        //
-                        //             reorderMinimizedImages();
-                        //         } else {
-                        //             // console.log("Dialog with ID " + firstDialogId + " not found.");
-                        //         }
-                        //     } else if (!restoringDialogs || (restoringDialogs && restoringDialogs.size === 0)) {
-                        //         // minimizedDialogs[dialogId]가 존재하지 않거나, 존재하지만 isMinimized가 false인 경우에만 최소화 처리
-                        //         if (!minimizedDialogs[dialogId] || !minimizedDialogs[dialogId].isMinimized) {
-                        //             $dialog.dialog('widget').hide();
-                        //
-                        //             const leftPosition = minimizedImageCount * (imageWidth + imageGap);
-                        //
-                        //             // 최소화된 다이얼로그를 목록에 추가
-                        //             if (!minimizedDialogs[dialogId]) {
-                        //                 minimizedDialogs[dialogId] = { leftPosition: leftPosition, isMinimized: true };
-                        //                 minimizedContainer.append('<img src="/static/image/images/map/treeRack.gif" class="minimized-img" data-dialog-id="' + dialogId + '" onclick="restoreDialog(\'' + dialogId + '\')" style="position: absolute; left: ' + leftPosition + 'px;" />');
-                        //             } else {
-                        //                 minimizedDialogs[dialogId].leftPosition = leftPosition;
-                        //                 minimizedDialogs[dialogId].isMinimized = true;
-                        //                 // 최소화된 이미지를 다시 추가
-                        //                 if (!$('.minimized-img[data-dialog-id="' + dialogId + '"]').length) {
-                        //                     minimizedContainer.append('<img src="/static/image/images/map/treeRack.gif" class="minimized-img" data-dialog-id="' + dialogId + '" onclick="restoreDialog(\'' + dialogId + '\')" style="position: absolute; left: ' + leftPosition + 'px;" />');
-                        //                 }
-                        //             }
-                        //
-                        //             $('.ui-widget-overlay').hide(); // 오버레이 숨기기
-                        //             minimizedImageCount = Object.keys(minimizedDialogs).filter(key => minimizedDialogs[key].isMinimized).length; // 최소화 상태 개수 업데이트
-                        //
-                        //             // console.log("afterMinimized:", minimizedDialogs[dialogId].isMinimized);
-                        //             // console.log("minimizedImageCount:", minimizedImageCount);
-                        //
-                        //             // 최소화된 이미지를 다시 정렬
-                        //             reorderMinimizedImages();
-                        //         }
-                        //     } else {
-                        //         // console.log("restoringDialogs is either null/undefined or not a Set.");
-                        //     }
-                        // });
-                    },
-                    beforeClose: function(event, ui) {
-                        const dialogId = $(this).attr('id');
-                        $('.minimized-img[data-dialog-id="' + dialogId + '"]').remove();
-                        delete minimizedDialogs[dialogId]; // 최소화된 다이얼로그 목록에서 해당 다이얼로그 제거
-                        minimizedImageCount = Object.keys(minimizedDialogs).filter(key => minimizedDialogs[key].isMinimized).length; // 최소화 상태 개수 업데이트
-
-                        if (!Object.values(minimizedDialogs).some(dialog => dialog.isMinimized)) {
-                            $('.ui-widget-overlay').hide(); // 모든 다이얼로그가 닫힐 때 오버레이 숨기기
-                        }
-
-                        // 모든 최소화 이미지를 다시 정렬
-                        reorderMinimizedImages();
-                    },
-                    close: function(event, ui) {
-                        if ($('.ui-dialog:visible').length === 0) {
-                            $('.ui-widget-overlay').hide(); // 모든 다이얼로그가 닫힐 때 오버레이 숨기기
-                        }
-                    }
-                });
-
-            return $dialog;
-        }
-
-        // 다이얼로그 복원 함수
-        window.restoreDialog = function(dialogId) {
-
-            restoringDialogs.add(dialogId); // 복원 중인 다이얼로그 ID 추가
-
-            var dialog = $('#' + dialogId);
-            dialog.dialog('widget').show();
-            $('.ui-widget-overlay').show(); // 오버레이 다시 표시
-
-            // 복원 후 최소화된 이미지를 제거
-            $('.minimized-img[data-dialog-id="' + dialogId + '"]').remove();
-
-            // 최소화 상태를 false로 변경하고 객체에서 제거
-            if (minimizedDialogs[dialogId]) {
-                delete minimizedDialogs[dialogId]; // 객체에서 항목 제거
-            }
-
-            minimizedImageCount = Object.keys(minimizedDialogs).filter(key => minimizedDialogs[key].isMinimized).length; // 현재 최소화된 이미지 개수로 업데이트
-
-            // 모든 최소화 이미지를 다시 정렬
-            reorderMinimizedImages();
-        };
-
-
-        // 모든 최소화 이미지를 다시 정렬하는 함수
-        function reorderMinimizedImages() {
-            var minimizedImages = $('.minimized-img');
-            minimizedImages.each(function(index) {
-                const leftPosition = index * (imageWidth + imageGap);
-                $(this).css('left', leftPosition + 'px');
-            });
-        }
-
         var latestDiskData = null;  // 처음에는 null로 설정
 
         // 트리 초기화
@@ -215,28 +84,6 @@
                 var nodeId = nodeData.id;
                 // console.log("nodeName:",nodeName);
 
-                var dialogId = 'dialog-' + (dialogCounter++);
-                console.log("dbdialogId: ", dialogId);
-                console.log("create - minimizedDialogs[dialogId]: ", minimizedDialogs[dialogId]);
-                var $dialog = createDialog(dialogId);
-
-                selectedNodeId = node.attr("id");
-
-                if (!minimizedDialogs[dialogId]) {
-                    minimizedDialogs[dialogId] = {
-                        leftPosition: minimizedImageCount * (imageWidth + imageGap),
-                        isMinimized: false // 초기화 상태는 최소화되지 않음
-                    };
-                    minimizedImageCount++;
-                    const leftPosition = minimizedDialogs[dialogId].leftPosition;
-
-                    minimizedContainer.append('<img src="/static/image/images/map/treeRack.gif" class="minimized-img" data-dialog-id="' + dialogId + '" onclick="restoreDialog(\'' + dialogId + '\')" style="position: absolute; left: ' + leftPosition + 'px;" />');
-                }
-
-                $dialog.dialog('option', 'title', nodeData.nodeName);
-                $dialog.dialog('open');
-                $dialog.html('<p>Loading...</p>');
-
                 // rackNodes가 null인지 확인
                 var rackNodes = nodeData.rackNodes;
 
@@ -256,22 +103,6 @@
                 console.log("Double-clicked nodeName:", nodeName);
                 console.log("Double-clicked nodeId:", nodeId);
 
-
-                // $.ajax({
-                //     url: 'http://localhost/rack/' + encodeURIComponent(nodeName),
-                //     method: 'GET',
-                //     data: {
-                //         nodeType: nodeData.nodeType,
-                //         nodeId: nodeData.nodeId,
-                //         receivedData: JSON.stringify(latestDiskData) // JSON stringified rackNodes
-                //     },
-                //     success: function(response) {
-                //         $dialog.html(response);
-                //     },
-                //     error: function() {
-                //         $dialog.html('<p>Failed to load content</p>');
-                //     }
-                // });
             }
         });
 
@@ -315,6 +146,7 @@
                         "nodeType": info.type,
                         "areaName": area,
                         "depth": info.depth,
+                        "port": info.port,
                         "rackNodes": []  // 일치하는 노드들을 저장할 배열
                     };
                     // childNodes 배열에 추가합니다.
@@ -349,6 +181,7 @@
                         "nodeType": info.type,
                         "areaName": area,
                         "depth": info.depth,
+                        "port": info.port,
                         "rackNodes": []  // 일치하는 노드들을 저장할 배열
                     };
 
@@ -374,14 +207,6 @@
             let nodeText = $('#tree-container').jstree(true).get_text(nodeId); // 노드의 텍스트를 가져옴
             let nodeType = nodeData ? nodeData.nodeType : null; // nodeType을 가져옴 (예외처리)
             let nodeDepth = nodeData ? nodeData.depth : null; // nodeType을 가져옴 (예외처리)
-
-            // console.log("node", node);
-            // console.log("nodeId", nodeId);
-            // console.log("nodeData", nodeData);
-            // console.log("areaName", areaName);
-            // console.log("nodeText", nodeText);
-            // console.log("nodeType", nodeType);
-            // console.log("nodeDepth", nodeDepth);
 
             $.ajax({
                 url: 'http://localhost/main/DashBoard',

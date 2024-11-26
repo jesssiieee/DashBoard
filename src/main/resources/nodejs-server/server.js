@@ -40,6 +40,17 @@ io.on('connection', (socket) => {
         }
     });
 
+    console.log('New client connected:', socket.id);
+
+    socket.on('sendIp', (data) => {
+        console.log(`IP received from client: ${data.ip}`);
+        io.emit('sendIp', data); // 모든 클라이언트에 전송
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected:', socket.id);
+    });
+
 
     socket.on('disconnect', () => {
         console.log('Client disconnected');
@@ -54,3 +65,4 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

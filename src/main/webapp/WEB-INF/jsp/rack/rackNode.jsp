@@ -80,6 +80,7 @@
     <p><span class="data-label">Node Text:</span> ${nodeText}</p>
     <p><span class="data-label">Node Type:</span> ${nodeType}</p>
     <p><span class="data-label">Node Depth:</span> ${nodeDepth}</p>
+    <p><span class="data-label">Node Port:</span> ${nodePort}</p>
 </div>
 
 <div class="section">

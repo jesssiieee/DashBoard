@@ -76,15 +76,6 @@
                 </div>
             </footer>
 
-            <!-- Context Menu -->
-            <div id="contextMenu" class="context-menu">
-                <ul>
-                    <li onclick="menuAction('action1')">Menu Action 1</li>
-                    <li onclick="menuAction('action2')">Menu Action 2</li>
-                    <li onclick="menuAction('action3')">Menu Action 3</li>
-                </ul>
-            </div>
-
         </div>
         <script src="/static/js/script.js"></script>
     </body>

@@ -67,7 +67,8 @@
                                     data-name="${mapInfo.name}"
                                     data-areaname="${mapInfo.area_name}"
                                     data-nodetype="${mapInfo.type}"
-                                    data-nodedepth="${mapInfo.depth }">
+                                    data-nodedepth="${mapInfo.depth }"
+                                    data-nodeport="${mapInfo.port }">
                             <span>${mapInfo.name}</span>
                         </div>
                     </c:when>
@@ -109,11 +110,14 @@
                 const areaName = this.getAttribute('data-areaname');
                 const nodeType = this.getAttribute('data-nodetype');
                 const nodeDepth = this.getAttribute('data-nodedepth');
+                const nodePort = this.getAttribute('data-nodeport');
 
-                sendDataToServer(nodeText, areaName, nodeType, nodeDepth, function () {
+                console.log("nodePort", nodePort);
+
+                sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,function () {
                     console.log("ajax 실행");
                     // 요청 성공 후 페이지 이동
-                    window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth);
+                    window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth) + '&nodePort=' + encodeURIComponent(nodePort);
                     // window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth);
                 });
             });
