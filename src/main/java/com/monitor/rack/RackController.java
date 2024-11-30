@@ -60,11 +60,6 @@ public class RackController {
             session.setAttribute("nodeDepth", nodeDepth);
             session.setAttribute("nodePort", nodePort);
 
-//            System.out.println("Node Text: " + nodeText);
-//            System.out.println("Area Name: " + areaName);
-//            System.out.println("Node Type: " + nodeType);
-//            System.out.println("Node Depth: " + nodeDepth);
-
             return "redirect:/testrack";
         } catch (Exception e) {
             // 예외 발생 시 로그 출력

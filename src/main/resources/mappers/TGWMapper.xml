@@ -17,4 +17,49 @@
             `map_info`
 
     </select>
+
+    <insert id="insertInfoList">
+        INSERT INTO
+            `insert_info`
+                (
+                    `ip`,
+                     `name`,
+                     `port`,
+                     `area`,
+                     `type`,
+                     `depth`,
+                     `forward_group`,
+                     `image`
+                )
+        VALUES
+            (
+                #{ip},
+                 #{name},
+                 #{port},
+                 #{area},
+                 #{type},
+                 #{depth},
+                 #{forwardGroup},
+                 #{image}
+            )
+
+    </insert>
+
+    <select id="selectInsertInfoList">
+
+        SELECT
+            `id`,
+                `ip`,
+                `area`,
+                `type`,
+                `name`,
+                `depth`,
+                `forward_group`,
+                `port`,
+                `image`
+        FROM
+            `insert_info`
+
+    </select>
+
 </mapper>

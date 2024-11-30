@@ -57,10 +57,10 @@
 <%--            <!-- 동적으로 내용 추가 -->--%>
 <%--        </div>--%>
         <div class="custom-overlay-container" id="overlayContainer">
+            <!-- mapInfoList 데이터 출력 -->
             <c:forEach items="${mapInfoList}" var="mapInfo" varStatus="loop">
                 <c:choose>
                     <c:when test="${mapInfo.type == 2 and mapInfo.depth == 1}">
-
                         <div class="custom-draggable" data-index="${loop.index}">
                             <img
                                     src="/static/image/images/map/tam_rack.png"
@@ -74,7 +74,24 @@
                     </c:when>
                 </c:choose>
             </c:forEach>
+
+            <!-- insertInfoList 데이터 출력 -->
+            <c:forEach items="${insertInfoList}" var="insertInfo" varStatus="loop">
+                <div class="custom-draggable" data-index="${loop.index}">
+                    <img
+                            src="/static/image/images/map/tam_rack.png"
+                            data-name="${insertInfo.name}"
+                            data-areaname="${insertInfo.area}"
+                            data-nodetype="${insertInfo.type}"
+                            data-nodedepth="${insertInfo.depth}"
+                            data-nodeport="${insertInfo.port}"
+                            data-nodeIp="${insertInfo.ip}">
+
+                    <span>${insertInfo.name}</span>
+                </div>
+            </c:forEach>
         </div>
+
     </div>
 </div>
 
@@ -111,8 +128,23 @@
                 const nodeType = this.getAttribute('data-nodetype');
                 const nodeDepth = this.getAttribute('data-nodedepth');
                 const nodePort = this.getAttribute('data-nodeport');
+                const nodeIp = this.getAttribute('data-nodeIp');
 
-                console.log("nodePort", nodePort);
+                // console.log("nodeText", nodeText);
+                // console.log("areaName", areaName);
+                // console.log("nodeType", nodeType);
+                // console.log("nodeDepth", nodeDepth);
+                // console.log("nodePort", nodePort);
+                // console.log("nodeIp", nodeIp);
+
+                // WebSocket을 통해 서버로 포트 데이터를 전송
+                socket.emit('sendNodePort', {
+                    nodeText: nodeText,
+                    areaName: areaName,
+                    nodeType: nodeType,
+                    nodeDepth: nodeDepth,
+                    nodePort: nodePort
+                });
 
                 sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,function () {
                     console.log("ajax 실행");

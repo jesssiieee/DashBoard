@@ -40,17 +40,28 @@ io.on('connection', (socket) => {
         }
     });
 
-    console.log('New client connected:', socket.id);
+    // console.log('New client connected:', socket.id);
 
     socket.on('sendIp', (data) => {
-        console.log(`IP received from client: ${data.ip}`);
-        io.emit('sendIp', data); // 모든 클라이언트에 전송
+        // console.log(`IP received from client: ${data.ip}`);
+        // console.log(`Other data received:`, data);
+
+        // 모든 클라이언트에 데이터 전송
+        io.emit('sendIp', data);
     });
 
-    socket.on('disconnect', () => {
-        console.log('Client disconnected:', socket.id);
-    });
 
+    // nodePort 전송 받은 후 클라이언트로 응답을 보냄
+    socket.on('sendNodePort', (data) => {
+        console.log(`Node port received from client: ${data.nodePort}`);
+
+        // 응답을 클라이언트에게 전송
+        io.emit('nodePortReceived', {
+            status: 'success',
+            message: 'Node port received successfully',
+            data: data
+        });
+    });
 
     socket.on('disconnect', () => {
         console.log('Client disconnected');

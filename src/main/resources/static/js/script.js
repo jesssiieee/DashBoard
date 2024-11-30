@@ -9,7 +9,7 @@ socket.on('connect', function() {
 });
 
 socket.on('sendIp', (data) => {
-    console.log('Received IP:', data.ip);
+    // console.log('Received IP:', data.ip);
 });
 
 // 메시지를 처리하는 이벤트
@@ -73,16 +73,63 @@ function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,call
 // IP 주소 전송
 function sendIp() {
     const ip = document.getElementById("ipInput").value;
+    const name = document.getElementById("nameInput").value;
+    const port = document.getElementById("portInput").value;
+
     if (!ip) {
         alert("IP 주소를 입력해주세요!");
         return;
     }
 
+    // 고정된 값 설정
+    const area = "수도권";
+    const type = "1";
+    const depth = "1";
+    const forwardGroup = "수도권";
+    const image = "bg";
+
+    const data = {
+        ip,
+        area,
+        type,
+        name,
+        depth,
+        forwardGroup,
+        port,
+        image
+    };
+
     if (socket.connected) {
-        socket.emit('sendIp', { ip: ip });
-        alert("IP 주소가 서버로 전송되었습니다!");
+        socket.emit('sendIp', data); // 고정값과 함께 데이터 전송
+        // console.log(data);
+        alert("IP 주소와 설정된 데이터가 서버로 전송되었습니다!");
     } else {
         alert("Socket.IO 서버에 연결되지 않았습니다.");
     }
+
+    $.ajax({
+        url: '/insert-info/save',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            alert('전송 성공');
+        },
+        error: function(xhr, status, error) {
+            console.error('에러 발생:', error);
+            alert('서버 요청 실패');
+        }
+    });
 }
+
+
+// 서버로부터 응답 처리
+socket.on('nodePortReceived', function(data) {
+    // console.log('서버로부터 받은 응답:', data);
+
+    // 응답 처리 (예: 페이지 갱신, 알림 등)
+    if (data.status === 'success') {
+        // alert('Node port가 성공적으로 전송되었습니다!');
+    }
+});
 
