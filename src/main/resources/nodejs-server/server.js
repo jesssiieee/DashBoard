@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
 
     socket.on('sendIp', (data) => {
         // console.log(`IP received from client: ${data.ip}`);
-        // console.log(`Other data received:`, data);
+        console.log(`Other data received:`, data);
 
         // 모든 클라이언트에 데이터 전송
         io.emit('sendIp', data);

@@ -39,7 +39,7 @@
                  #{area},
                  #{type},
                  #{depth},
-                 #{forwardGroup},
+                 #{forward_group},
                  #{image}
             )
 

@@ -72,30 +72,49 @@
 </head>
 <body>
 
-<h3>Rack Node Information</h3>
+<h3>Rack Node 정보</h3>
 
 <div class="section">
-    <h4>Node Information</h4>
-    <p><span class="data-label">Area Name:</span> ${areaName}</p>
-    <p><span class="data-label">Node Text:</span> ${nodeText}</p>
-    <p><span class="data-label">Node Type:</span> ${nodeType}</p>
-    <p><span class="data-label">Node Depth:</span> ${nodeDepth}</p>
-    <p><span class="data-label">Node Port:</span> ${nodePort}</p>
+    <h4>Node 정보</h4>
+    <p><span class="data-label">구역 이름:</span> ${areaName}</p>
+    <p><span class="data-label">노드 텍스트:</span> ${nodeText}</p>
+    <p><span class="data-label">노드 포트:</span> ${nodePort}</p>
+
+    <!-- nodeIp가 있을 경우에만 표시 -->
+    <c:if test="${not empty nodeIp}">
+        <p><span class="data-label">노드 IP:</span> ${nodeIp}</p>
+    </c:if>
 </div>
 
 <div class="section">
-    <h4>Received Data</h4>
-    <p><span class="data-label">Network Data:</span></p>
-    <pre>${networkData}</pre>
+    <h4>수신된 데이터</h4>
 
-    <p><span class="data-label">Disk Data:</span></p>
-    <pre>${diskData}</pre>
+    <h5>네트워크 데이터</h5>
+    <p><span class="data-label">수신된 바이트:</span> ${networkData.bytes_recv} 바이트</p>
+    <p><span class="data-label">전송된 바이트:</span> ${networkData.bytes_sent} 바이트</p>
+    <p><span class="data-label">수신된 패킷:</span> ${networkData.packets_recv} 개</p>
+    <p><span class="data-label">전송된 패킷:</span> ${networkData.packets_sent} 개</p>
+    <p><span class="data-label">입력된 드롭:</span> ${networkData.dropin} 개</p>
+    <p><span class="data-label">출력된 드롭:</span> ${networkData.dropout} 개</p>
+    <p><span class="data-label">입력된 오류:</span> ${networkData.errin} 개</p>
+    <p><span class="data-label">출력된 오류:</span> ${networkData.errout} 개</p>
 
-    <p><span class="data-label">Memory Data:</span></p>
-    <pre>${memoryData}</pre>
+    <h5>디스크 데이터</h5>
+    <p><span class="data-label">여유 공간:</span> ${diskData.free} 바이트</p>
+    <p><span class="data-label">사용된 공간:</span> ${diskData.used} 바이트</p>
+    <p><span class="data-label">전체 공간:</span> ${diskData.total} 바이트</p>
+    <p><span class="data-label">사용 비율:</span> ${diskData.percent}%</p>
+
+    <h5>메모리 데이터</h5>
+    <p><span class="data-label">활성 메모리:</span> ${memoryData.active} 바이트</p>
+    <p><span class="data-label">사용 가능한 메모리:</span> ${memoryData.available} 바이트</p>
+    <p><span class="data-label">여유 메모리:</span> ${memoryData.free} 바이트</p>
+    <p><span class="data-label">비활성 메모리:</span> ${memoryData.inactive} 바이트</p>
+    <p><span class="data-label">사용된 메모리:</span> ${memoryData.used} 바이트</p>
+    <p><span class="data-label">고정 메모리:</span> ${memoryData.wired} 바이트</p>
 </div>
 
-<button class="button" onclick="window.location.href='/main/DashBoard'">Back to Dashboard</button>
+<button class="button" onclick="window.location.href='/main/DashBoard'">대시보드로 돌아가기</button>
 
 </body>
 </html>

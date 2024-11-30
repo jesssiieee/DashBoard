@@ -38,27 +38,32 @@ function updateMessageUI(latestDiskData) {
 }
 
 // ajax 요청을 처리하는 함수
-function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,callback) {
+function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort, callback, nodeIp) {
     if (!latestDiskData) {
         console.error('No disk data available.');
         return;
     }
 
-    // latestDiskData가 무엇인지 콘솔에 출력해보세요
-    // console.log('latestDiskData:', latestDiskData);
+    // 전송 데이터 객체 생성
+    const data = {
+        nodeText: nodeText,
+        areaName: areaName,
+        nodeType: nodeType,
+        nodeDepth: nodeDepth,
+        nodePort: nodePort,
+        receivedData: latestDiskData // JSON 객체 전달
+    };
+
+    // nodeIp가 존재하면 데이터에 추가
+    if (nodeIp) {
+        data.nodeIp = nodeIp;
+    }
 
     $.ajax({
         url: 'http://localhost/rack/testrack',
         method: 'POST',
         contentType: 'application/json', // JSON 데이터 전송
-        data: JSON.stringify({
-            nodeText: nodeText,
-            areaName: areaName,
-            nodeType: nodeType,
-            nodeDepth: nodeDepth,
-            nodePort: nodePort,
-            receivedData: latestDiskData // JSON 객체 전달
-        }),
+        data: JSON.stringify(data),
         success: function (response) {
             console.log('Request successful:', response);
             if (callback) callback(); // 성공 시 콜백 호출
@@ -69,6 +74,7 @@ function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,call
         }
     });
 }
+
 
 // IP 주소 전송
 function sendIp() {
@@ -85,7 +91,7 @@ function sendIp() {
     const area = "수도권";
     const type = "1";
     const depth = "1";
-    const forwardGroup = "수도권";
+    const forward_group = "수도권";
     const image = "bg";
 
     const data = {
@@ -94,7 +100,7 @@ function sendIp() {
         type,
         name,
         depth,
-        forwardGroup,
+        forward_group,
         port,
         image
     };

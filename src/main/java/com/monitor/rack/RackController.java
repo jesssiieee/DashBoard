@@ -12,10 +12,7 @@ import java.util.Map;
 public class RackController {
 
     @GetMapping("/testrack")
-    public String RackTestPage(
-            HttpSession session,
-            Model model) {
-
+    public String RackTestPage(HttpSession session, Model model) {
         Map<String, Object> receivedData = (Map<String, Object>) session.getAttribute("receivedData");
 
         if (receivedData != null) {
@@ -31,6 +28,7 @@ public class RackController {
         String nodeType = (String) session.getAttribute("nodeType");
         String nodeDepth = (String) session.getAttribute("nodeDepth");
         String nodePort = (String) session.getAttribute("nodePort");
+        String nodeIp = (String) session.getAttribute("nodeIp"); // nodeIp 추가
 
         // 모델에 세션 데이터 추가
         model.addAttribute("areaName", areaName);
@@ -38,6 +36,7 @@ public class RackController {
         model.addAttribute("nodeType", nodeType);
         model.addAttribute("nodeDepth", nodeDepth);
         model.addAttribute("nodePort", nodePort);
+        model.addAttribute("nodeIp", nodeIp); // nodeIp 추가
 
         return "rack/rackNode"; // rackNode.jsp로 이동
     }
@@ -51,6 +50,7 @@ public class RackController {
             String nodeType = (String) requestData.get("nodeType");
             String nodeDepth = (String) requestData.get("nodeDepth");
             String nodePort = (String) requestData.get("nodePort");
+            String nodeIp = (String) requestData.get("nodeIp"); // nodeIp 추가
 
             Map<String, Object> receivedData = (Map<String, Object>) requestData.get("receivedData");
             session.setAttribute("receivedData", receivedData);
@@ -59,8 +59,9 @@ public class RackController {
             session.setAttribute("nodeType", nodeType);
             session.setAttribute("nodeDepth", nodeDepth);
             session.setAttribute("nodePort", nodePort);
+            session.setAttribute("nodeIp", nodeIp); // nodeIp 세션에 저장
 
-            return "redirect:/testrack";
+            return "redirect:/rack/testrack"; // 리다이렉션
         } catch (Exception e) {
             // 예외 발생 시 로그 출력
             e.printStackTrace();
