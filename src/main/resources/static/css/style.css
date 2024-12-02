@@ -21,13 +21,32 @@ header {
     border: 1px solid black;
 }
 
+/*footer {*/
+/*    width: 100%;*/
+/*    height: calc((100% - 35px) * 0.3); !* 30% of the remaining height *!*/
+/*    border: 1px solid black;*/
+/*    overflow: auto; !* 스크롤바를 추가합니다 *!*/
+/*    position: relative;*/
+/*}*/
+
 footer {
     width: 100%;
     height: calc((100% - 35px) * 0.3); /* 30% of the remaining height */
     border: 1px solid black;
-    overflow: auto; /* 스크롤바를 추가합니다 */
+    overflow: auto;
     position: relative;
+    display: flex; /* 자식 요소를 정렬하기 위해 flexbox 사용 */
+    justify-content: center; /* 자식 요소를 가로로 가운데 정렬 */
+    align-items: center; /* 자식 요소를 세로로 가운데 정렬 */
 }
+
+footer div {
+    width: 100%; /* 부모의 너비를 채움 */
+    height: 100%; /* 부모의 높이를 채움 */
+    box-sizing: border-box; /* padding 및 border 포함 */
+    padding: 10px; /* 내용물에 약간의 여백 추가 */
+}
+
 
 section {
     width: 100%;

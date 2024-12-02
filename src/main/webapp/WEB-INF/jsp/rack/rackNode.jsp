@@ -100,18 +100,54 @@
     <p><span class="data-label">출력된 오류:</span> ${networkData.errout} 개</p>
 
     <h5>디스크 데이터</h5>
-    <p><span class="data-label">여유 공간:</span> ${diskData.free} 바이트</p>
-    <p><span class="data-label">사용된 공간:</span> ${diskData.used} 바이트</p>
-    <p><span class="data-label">전체 공간:</span> ${diskData.total} 바이트</p>
+    <p><span class="data-label">여유 공간:</span>
+        <c:out value="${diskData.free / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">사용된 공간:</span>
+        <c:out value="${diskData.used / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">전체 공간:</span>
+        <c:out value="${diskData.total / 1073741824}"/> GB
+    </p>
     <p><span class="data-label">사용 비율:</span> ${diskData.percent}%</p>
 
+    <p><span class="data-label">계산된 사용 비율:</span>
+        <c:choose>
+            <c:when test="${not empty diskData.percent_calculated}">
+                ${diskData.percent_calculated}%
+            </c:when>
+            <c:otherwise>계산 불가</c:otherwise>
+        </c:choose>
+    </p>
+
     <h5>메모리 데이터</h5>
-    <p><span class="data-label">활성 메모리:</span> ${memoryData.active} 바이트</p>
-    <p><span class="data-label">사용 가능한 메모리:</span> ${memoryData.available} 바이트</p>
-    <p><span class="data-label">여유 메모리:</span> ${memoryData.free} 바이트</p>
-    <p><span class="data-label">비활성 메모리:</span> ${memoryData.inactive} 바이트</p>
-    <p><span class="data-label">사용된 메모리:</span> ${memoryData.used} 바이트</p>
-    <p><span class="data-label">고정 메모리:</span> ${memoryData.wired} 바이트</p>
+    <p><span class="data-label">활성 메모리:</span>
+        <c:out value="${memoryData.active / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">사용 가능한 메모리:</span>
+        <c:out value="${memoryData.available / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">여유 메모리:</span>
+        <c:out value="${memoryData.free / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">비활성 메모리:</span>
+        <c:out value="${memoryData.inactive / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">사용된 메모리:</span>
+        <c:out value="${memoryData.used / 1073741824}"/> GB
+    </p>
+    <p><span class="data-label">고정 메모리:</span>
+        <c:out value="${memoryData.wired / 1073741824}"/> GB
+    </p>
+
+    <p><span class="data-label">계산된 메모리 사용 비율:</span>
+        <c:choose>
+            <c:when test="${not empty memoryData.percent_calculated}">
+                ${memoryData.percent_calculated}%
+            </c:when>
+            <c:otherwise>계산 불가</c:otherwise>
+        </c:choose>
+    </p>
 </div>
 
 <button class="button" onclick="window.location.href='/main/DashBoard'">대시보드로 돌아가기</button>
