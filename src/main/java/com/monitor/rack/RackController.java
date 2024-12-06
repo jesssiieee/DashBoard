@@ -16,7 +16,15 @@ public class RackController {
         Map<String, Object> receivedData = (Map<String, Object>) session.getAttribute("receivedData");
 
         if (receivedData != null) {
-            // 받은 데이터를 Model에 추가
+            // 'receivedData' 안에서 'sense_data' 추출
+            Map<String, Object> senseData = (Map<String, Object>) receivedData.get("sense_data");
+
+            if (senseData != null) {
+                // 'senseData' 모델에 추가
+                model.addAttribute("senseData", senseData);
+            }
+
+            // 기존 'receivedData'에서 네트워크, 디스크, 메모리 데이터 추가
             model.addAttribute("networkData", receivedData.get("net"));
             model.addAttribute("diskData", receivedData.get("disk"));
             model.addAttribute("memoryData", receivedData.get("memory"));

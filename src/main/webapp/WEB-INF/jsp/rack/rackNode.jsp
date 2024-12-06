@@ -87,6 +87,27 @@
 </div>
 
 <div class="section">
+    <h4>센서 데이터</h4>
+
+    <!-- nodePort가 5001, 5002, 5003, 5004, 5005 중 하나일 경우에만 센서 데이터 표시 -->
+    <c:if test="${nodePort == '5001' or nodePort == '5002' or nodePort == '5003' or nodePort == '5004' or nodePort == '5005'}">
+        <h5>온도 및 습도</h5>
+        <p><span class="data-label">온도 및 습도:</span> ${senseData.temperature_humidity}°C</p>
+
+        <h5>온도 및 압력</h5>
+        <p><span class="data-label">온도 및 압력:</span> ${senseData.temperature_pressure}°C</p>
+
+        <h5>습도</h5>
+        <p><span class="data-label">습도:</span> ${senseData.humidity}%</p>
+
+        <h5>압력</h5>
+        <p><span class="data-label">압력:</span> ${senseData.pressure} hPa</p>
+    </c:if>
+</div>
+
+
+
+<div class="section">
     <h4>수신된 데이터</h4>
 
     <h5>네트워크 데이터</h5>

@@ -120,6 +120,7 @@ function sendIp() {
         data: JSON.stringify(data),
         success: function(response) {
             alert('전송 성공');
+            location.reload();  // 요청 성공 후 페이지 새로고침
         },
         error: function(xhr, status, error) {
             console.error('에러 발생:', error);
