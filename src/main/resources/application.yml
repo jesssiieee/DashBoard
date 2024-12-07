@@ -8,10 +8,11 @@ spring:
     static-path-pattern: /static/**
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://MacBook-Air.local:3306/DASHBOARD
-    url: jdbc:mysql://3.104.76.195:3306/DASHBOARD
+    url: jdbc:mysql://MacBook-Air.local:3306/DASHBOARD
+#    url: jdbc:mysql://3.104.76.195:3306/DASHBOARD
     username: root
-    password: root
+#    password: root
+    password: Logi1122@password
   jpa:
     show-sql: true
     hibernate:
