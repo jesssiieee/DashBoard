@@ -1,7 +1,8 @@
 // 전역 변수 선언
 var latestDiskData;
 
-var socket = io('http://localhost:3000');
+// var socket = io('http://localhost:3000');
+const socket = io('http://3.104.76.195:3000');
 
 socket.on('connect', function() {
     console.log('Socket.IO connected');
@@ -37,7 +38,6 @@ function updateMessageUI(latestDiskData) {
     $('#messages').html(container);
 }
 
-// ajax 요청을 처리하는 함수
 function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort, callback, nodeIp) {
     if (!latestDiskData) {
         console.error('No disk data available.');
@@ -60,7 +60,8 @@ function sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort, cal
     }
 
     $.ajax({
-        url: 'http://localhost/rack/testrack',
+        // url: 'http://localhost/rack/testrack',
+        url: 'http://3.104.76.195/rack/testrack',
         method: 'POST',
         contentType: 'application/json', // JSON 데이터 전송
         data: JSON.stringify(data),

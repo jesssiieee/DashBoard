@@ -143,21 +143,14 @@
                 if (nodeIp) {
                     sendData.nodeIp = nodeIp;
                 }
-
-                // console.log("nodeText", nodeText);
-                // console.log("areaName", areaName);
-                // console.log("nodeType", nodeType);
-                // console.log("nodeDepth", nodeDepth);
-                // console.log("nodePort", nodePort);
-                // console.log("nodeIp", nodeIp);
-
                 // WebSocket을 통해 서버로 데이터 전송
                 socket.emit('sendNodePort', sendData)
 
                 sendDataToServer(nodeText, areaName, nodeType, nodeDepth, nodePort,function () {
                     console.log("ajax 실행");
                     // 요청 성공 후 페이지 이동
-                    window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth) + '&nodePort=' + encodeURIComponent(nodePort);
+                    // window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth) + '&nodePort=' + encodeURIComponent(nodePort);
+                    window.location.href = 'http://3.104.76.195/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth) + '&nodePort=' + encodeURIComponent(nodePort);
                     // window.location.href = 'http://localhost/rack/testrack?areaName=' + encodeURIComponent(areaName) + '&nodeText=' + encodeURIComponent(nodeText) + '&nodeType=' + encodeURIComponent(nodeType) + '&nodeDepth=' +encodeURIComponent(nodeDepth);
                 }, nodeIp);
             });

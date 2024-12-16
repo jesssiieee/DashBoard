@@ -6,11 +6,18 @@ const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
+// const io = socketIo(server, {
+//     cors: {
+//         origin: '*',
+//     }
+// });
 const io = socketIo(server, {
     cors: {
-        origin: '*',
+        origin: 'http://3.104.76.195', // 이 부분을 클라이언트의 도메인으로 설정
+        methods: ['GET', 'POST']
     }
 });
+
 
 app.use(cors());
 

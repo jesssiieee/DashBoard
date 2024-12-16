@@ -39,7 +39,8 @@
     <!-- 내 스타일 시트 -->
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<%--    <script src="http://localhost:3000/socket.io/socket.io.js"></script>--%>
+    <script src="http://3.104.76.195:3000/socket.io/socket.io.js"></script>
 
     <script>document.addEventListener('contextmenu', event => event.preventDefault());</script>
 
